@@ -30,13 +30,7 @@ class IMS:
             "cartItemsQuantity":[]
         }
 
-        self.userCategory={
-            "1":["Normal Customer","black"],
-            "2":["Weekly Customer","white"],
-            "3":["Monthly Customer","blue"],
-            "4":["VIP customer","yellow"],
-            "5":["Golden Custmer","green"]
-        }
+      
 
 
 
@@ -85,28 +79,12 @@ class IMS:
         btn_discount=Button(leftMenu,text="Discount",command=self.discount,image=self.icon_side,bd=3,cursor="hand2",compound=LEFT,anchor="w",font=("times new roman",20,"bold")).pack(side=TOP,fill=X)
         
 
-        # ========= Right Menu=======
-
-        self.rightMenu=Frame(self.root,bd=2,relief=RIDGE,bg="white")
-        self.rightMenu.place(x=1100,y=102,width=200,height=565)
-
-
-        lbl_cart_lbl=Label(self.rightMenu,text="Cart Products",font=("times new roman",20),bg="#009688").pack(side=TOP,fill=X)
-
-        self.listProducts=Text(self.rightMenu,width=30)
-        self.listProducts.pack()
-
-        
-
-        self.checkout_btn=Button(self.rightMenu,text="Checkout ",command=self.checkout,pady=10,fg="white",font="arial 18 bold",bg="blue",width=20,cursor="hand2")
-        self.checkout_btn.pack(side=BOTTOM)
-        self.setTotal()
 
         # ============= center menu==============
 
         self.centerMenu=Frame(self.root,bd=2,relief=RIDGE,bg="white")
         self.centerMenu.place(x=300,y=102,width=800,height=565)
-        
+        #self.dashboard_frames.append(self.centerMenu)     
         
         self.homePage()        
         
@@ -167,8 +145,28 @@ class IMS:
         self.headerAddProduct()
 
         
-        self.scrolly=Scrollbar(self.searchProductDetailFrame,orient=VERTICAL)
-        self.scrolly.pack(side=RIGHT,fill=Y)
+        
+        # ========= Right Menu=======
+
+        self.rightMenu=Frame(self.root,bd=2,relief=RIDGE,bg="white")
+        self.rightMenu.place(x=1100,y=102,width=200,height=565)
+        self.dashboard_frames.append(self.rightMenu)
+
+
+        lbl_cart_lbl=Label(self.rightMenu,text="Cart Products",font=("times new roman",20),bg="#009688").pack(side=TOP,fill=X)
+
+        self.listProducts=Text(self.rightMenu,width=30)
+        self.listProducts.pack()
+
+        
+
+        self.checkout_btn=Button(self.rightMenu,text="Checkout ",command=self.checkout,pady=10,fg="white",font="arial 18 bold",bg="blue",width=20,cursor="hand2")
+        self.checkout_btn.pack(side=BOTTOM)
+        self.setTotal()
+
+
+
+
 
     def searchProduct(self):
         uniqueNo=self.searchProductEntry.get()
@@ -222,9 +220,9 @@ class IMS:
         self.y=self.y+30        
 
         for j in self.cartItemsData["cartItemsName"]:
-            self.p_price=Label(self.searchProductDetailFrame,text=j,bg="white",font="arial 15 bold",width=18,pady=1,fg="black",yscrollcommand=self.scrolly.set())
+            self.p_price=Label(self.searchProductDetailFrame,text=j,bg="white",font="arial 15 bold",width=18,pady=1,fg="black")
             self.p_price.place(x=20,y=self.y)
-            self.scrolly.config(command=self.p_price.yview)
+            
 
         for i in self.cartItemsData["cartItemsPrice"]:
             self.p_name=Label(self.searchProductDetailFrame,text=str(i)+" Rs",bg="white",font="arial 15 bold",width=18,pady=1,fg="black")
@@ -259,8 +257,9 @@ class IMS:
     def insert(self):
         self.dashboardFlush()
 
+
         self.insertFrameGui=Frame(self.centerMenu,bg="white")
-        self.insertFrameGui.pack(expand=TRUE)
+        self.insertFrameGui.pack(expand=True)
 
         self.dashboard_frames.append(self.insertFrameGui)
 
